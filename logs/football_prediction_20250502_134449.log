@@ -1,0 +1,30 @@
+2025-05-02 13:44:49,417 — __main__ — INFO — 1. Starting data loading
+2025-05-02 13:44:49,430 — src.data.loader — INFO — Loading data from data/raw/FPL_logs.csv
+2025-05-02 13:44:50,110 — src.data.loader — INFO — Data validation passed
+2025-05-02 13:44:50,112 — src.data.loader — INFO — Dataset loaded: 24573 rows, 80 columns
+2025-05-02 13:44:50,113 — src.data.loader — INFO — Columns: ['Date', 'Day', 'Venue', 'Team', 'Opponent', 'Name', 'Start', 'Pos', 'Min', 'Gls']... (and 70 more)
+2025-05-02 13:44:50,123 — src.data.loader — INFO — Data types: {dtype('float64'): 59, dtype('O'): 17, dtype('int64'): 3, dtype('bool'): 1}
+2025-05-02 13:44:50,183 — src.data.loader — INFO — Missing values: 121533 total missing values
+2025-05-02 13:44:50,184 — __main__ — INFO — 2. Starting data preprocessing
+2025-05-02 13:44:50,203 — src.data.preprocessor — INFO — Starting data preprocessing
+2025-05-02 13:44:50,259 — src.data.preprocessor — INFO — Filtered rows with playing time > 0: 19236 rows remaining
+2025-05-02 13:44:50,259 — src.data.preprocessor — INFO — Handling missing values
+2025-05-02 13:44:50,505 — src.data.preprocessor — INFO — Missing values handled: 0 remaining
+2025-05-02 13:44:50,505 — src.data.preprocessor — INFO — Creating binary target variable with threshold 5.0
+2025-05-02 13:44:50,510 — src.data.preprocessor — INFO — Target variable distribution: {0: 15242, 1: 3994}
+2025-05-02 13:44:50,511 — src.data.preprocessor — INFO — Dropping 10 non-feature columns
+2025-05-02 13:44:50,546 — src.data.preprocessor — INFO — Transforming features
+2025-05-02 13:44:50,555 — src.data.preprocessor — INFO — Encoding 10 categorical variables
+2025-05-02 13:44:51,190 — src.data.preprocessor — INFO — Feature transformation complete: 78 features
+2025-05-02 13:44:51,195 — src.data.preprocessor — INFO — Default temporal split (80/10/10): Train=15388, Val=1923, Test=1925
+2025-05-02 13:44:51,195 — src.data.preprocessor — INFO — Data preprocessing completed
+2025-05-02 13:44:51,201 — __main__ — INFO — 3. Starting feature selection
+2025-05-02 13:44:51,235 — src.features.selector — INFO — Performing SelectKBest feature selection with cross-validation
+2025-05-02 13:44:51,236 — src.features.selector — INFO — Selecting top 30 features using univariate tests
+2025-05-02 13:44:51,357 — src.features.selector — INFO — Selected 30 features using SelectKBest
+2025-05-02 13:45:01,520 — src.features.selector — INFO — Cross-validated F1 score with selected features: 0.9672 ± 0.0046
+2025-05-02 13:45:01,530 — __main__ — INFO — Saved selected features to output\selected_features.joblib for prediction UI
+2025-05-02 13:45:01,531 — __main__ — INFO — 4. Starting model training and evaluation
+2025-05-02 13:45:01,532 — __main__ — INFO — Training and evaluating RandomForest model
+2025-05-02 13:45:01,532 — src.models.model_factory — INFO — Creating RandomForest model
+2025-05-02 13:45:01,534 — __main__ — ERROR — Error in pipeline: No module named 'src.models.random_forest'

@@ -1,0 +1,27 @@
+2025-05-04 20:01:56,815 - root - INFO - Logging initialized. Logs will be written to logs\football_prediction_20250504_200156.log.
+2025-05-04 20:01:56,816 - __main__ - INFO - 1. Starting data loading
+2025-05-04 20:01:56,827 - src.data.loader - INFO - Loading data from data/raw/FPL_logs.csv
+2025-05-04 20:01:57,254 - src.data.loader - INFO - Data validation passed
+2025-05-04 20:01:57,254 - src.data.loader - INFO - Dataset loaded: 24573 rows, 80 columns
+2025-05-04 20:01:57,255 - src.data.loader - INFO - Columns: ['Date', 'Day', 'Venue', 'Team', 'Opponent', 'Name', 'Start', 'Pos', 'Min', 'Gls']... (and 70 more)
+2025-05-04 20:01:57,258 - src.data.loader - INFO - Data types: {dtype('float64'): 59, dtype('O'): 17, dtype('int64'): 3, dtype('bool'): 1}
+2025-05-04 20:01:57,338 - src.data.loader - INFO - Missing values: 121533 total missing values
+2025-05-04 20:01:57,362 - __main__ - INFO - 2. Starting data preprocessing
+2025-05-04 20:01:57,396 - src.data.preprocessor - INFO - Starting data preprocessing
+2025-05-04 20:01:57,513 - src.data.preprocessor - INFO - Filtered rows with playing time > 0: 19236 rows remaining
+2025-05-04 20:01:57,526 - src.data.preprocessor - INFO - Handling missing values
+2025-05-04 20:01:57,733 - src.data.preprocessor - INFO - Missing values handled: 0 remaining
+2025-05-04 20:01:57,734 - src.data.preprocessor - INFO - Creating binary target variable with threshold 5.0
+2025-05-04 20:01:57,736 - src.data.preprocessor - INFO - Target variable distribution: {0: 15242, 1: 3994}
+2025-05-04 20:01:57,736 - src.data.preprocessor - INFO - Dropping 10 non-feature columns
+2025-05-04 20:01:57,756 - src.data.preprocessor - INFO - Transforming features
+2025-05-04 20:01:57,762 - src.data.preprocessor - INFO - Encoding 10 categorical variables
+2025-05-04 20:01:58,162 - src.data.preprocessor - INFO - Feature transformation complete: 78 features
+2025-05-04 20:01:58,165 - src.data.preprocessor - INFO - Default temporal split (80/10/10): Train=15388, Val=1923, Test=1925
+2025-05-04 20:01:58,166 - src.data.preprocessor - INFO - Data preprocessing completed
+2025-05-04 20:01:58,169 - __main__ - INFO - 3. Starting feature selection
+2025-05-04 20:01:58,192 - src.features.selector - INFO - Performing SelectKBest feature selection with cross-validation
+2025-05-04 20:01:58,192 - src.features.selector - INFO - Selecting top 30 features using univariate tests
+2025-05-04 20:01:58,275 - src.features.selector - INFO - Selected 30 features using SelectKBest
+2025-05-04 20:02:04,736 - src.features.selector - INFO - Cross-validated F1 score with selected features: 0.9672 ± 0.0046
+2025-05-04 20:02:04,737 - __main__ - ERROR - Error in pipeline: "['Min_points'] not in index"

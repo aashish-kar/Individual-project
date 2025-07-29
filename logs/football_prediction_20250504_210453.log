@@ -1,0 +1,92 @@
+2025-05-04 21:04:53,469 - root - INFO - Logging initialized. Logs will be written to logs\football_prediction_20250504_210453.log.
+2025-05-04 21:04:53,471 - __main__ - INFO - 1. Starting data loading
+2025-05-04 21:04:53,490 - src.data.loader - INFO - Loading data from data/raw/FPL_logs.csv
+2025-05-04 21:04:54,253 - src.data.loader - INFO - Data validation passed
+2025-05-04 21:04:54,254 - src.data.loader - INFO - Dataset loaded: 24573 rows, 80 columns
+2025-05-04 21:04:54,256 - src.data.loader - INFO - Columns: ['Date', 'Day', 'Venue', 'Team', 'Opponent', 'Name', 'Start', 'Pos', 'Min', 'Gls']... (and 70 more)
+2025-05-04 21:04:54,264 - src.data.loader - INFO - Data types: {dtype('float64'): 59, dtype('O'): 17, dtype('int64'): 3, dtype('bool'): 1}
+2025-05-04 21:04:54,334 - src.data.loader - INFO - Missing values: 121533 total missing values
+2025-05-04 21:04:54,335 - __main__ - INFO - 2. Starting data preprocessing
+2025-05-04 21:04:54,347 - src.data.preprocessor - INFO - Starting data preprocessing
+2025-05-04 21:04:54,382 - src.data.preprocessor - INFO - Filtered rows with playing time > 0: 19236 rows remaining
+2025-05-04 21:04:54,382 - src.data.preprocessor - INFO - Handling missing values
+2025-05-04 21:04:54,705 - src.data.preprocessor - INFO - Missing values handled: 0 remaining
+2025-05-04 21:04:54,705 - src.data.preprocessor - INFO - Creating binary target variable with threshold 5.0
+2025-05-04 21:04:54,715 - src.data.preprocessor - INFO - Target variable distribution: {0: 15242, 1: 3994}
+2025-05-04 21:04:54,716 - src.data.preprocessor - INFO - Dropping 10 non-feature columns
+2025-05-04 21:04:54,744 - src.data.preprocessor - INFO - Transforming features
+2025-05-04 21:04:54,752 - src.data.preprocessor - INFO - Encoding 10 categorical variables
+2025-05-04 21:04:55,396 - src.data.preprocessor - INFO - Feature transformation complete: 78 features
+2025-05-04 21:04:55,402 - src.data.preprocessor - INFO - Default temporal split (80/10/10): Train=15388, Val=1923, Test=1925
+2025-05-04 21:04:55,403 - src.data.preprocessor - INFO - Data preprocessing completed
+2025-05-04 21:04:55,409 - __main__ - INFO - 3. Starting feature selection
+2025-05-04 21:04:55,444 - src.features.selector - INFO - Performing SelectKBest feature selection with cross-validation
+2025-05-04 21:04:55,446 - src.features.selector - INFO - Selecting top 30 features using univariate tests
+2025-05-04 21:04:55,536 - src.features.selector - INFO - Selected 30 features using SelectKBest
+2025-05-04 21:05:06,045 - src.features.selector - INFO - Cross-validated F1 score with selected features: 0.9672 ± 0.0046
+2025-05-04 21:05:06,061 - __main__ - INFO - Saved selected features to output\selected_features.joblib for prediction UI
+2025-05-04 21:05:06,063 - __main__ - INFO - 4. Starting model training and evaluation
+2025-05-04 21:05:06,065 - __main__ - INFO - Training and evaluating RandomForest model
+2025-05-04 21:05:09,803 - model.{'n_estimators': 200, 'max_depth': 15, 'min_samples_split': 10, 'min_samples_leaf': 4, 'class_weight': 'balanced', 'random_state': 42} - INFO - Classification report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.99      0.99      1506
+           1       0.96      0.97      0.97       419
+
+    accuracy                           0.99      1925
+   macro avg       0.98      0.98      0.98      1925
+weighted avg       0.99      0.99      0.99      1925
+
+2025-05-04 21:05:09,807 - model.{'n_estimators': 200, 'max_depth': 15, 'min_samples_split': 10, 'min_samples_leaf': 4, 'class_weight': 'balanced', 'random_state': 42} - INFO - Confusion matrix:
+[[1490   16]
+ [  12  407]]
+2025-05-04 21:05:09,808 - __main__ - INFO - RandomForest metrics: {'accuracy': 0.9854545454545455, 'precision': 0.9621749408983451, 'recall': 0.9713603818615751, 'f1_score': 0.9667458432304038, 'roc_auc': np.float64(0.9987535934226499)}
+2025-05-04 21:05:09,920 - __main__ - INFO - Saved feature importance to output\randomforest_feature_importance.csv
+2025-05-04 21:05:09,921 - __main__ - INFO - Training and evaluating SVM model
+2025-05-04 21:05:57,231 - model.{'C': 5.0, 'kernel': 'rbf', 'gamma': 0.01, 'probability': True, 'class_weight': 'balanced', 'random_state': 42} - INFO - Classification report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.98      0.98      1506
+           1       0.92      0.96      0.94       419
+
+    accuracy                           0.97      1925
+   macro avg       0.96      0.97      0.96      1925
+weighted avg       0.98      0.97      0.97      1925
+
+2025-05-04 21:05:57,233 - model.{'C': 5.0, 'kernel': 'rbf', 'gamma': 0.01, 'probability': True, 'class_weight': 'balanced', 'random_state': 42} - INFO - Confusion matrix:
+[[1473   33]
+ [  16  403]]
+2025-05-04 21:05:57,234 - __main__ - INFO - SVM metrics: {'accuracy': 0.9745454545454545, 'precision': 0.9243119266055045, 'recall': 0.9618138424821002, 'f1_score': 0.9426900584795321, 'roc_auc': np.float64(0.9950318059504226)}
+2025-05-04 21:05:57,235 - __main__ - INFO - Training and evaluating NeuralNetwork model
+2025-05-04 21:06:30,989 - model.{'hidden_layer_sizes': [64, 32, 16], 'activation': 'relu', 'solver': 'adam', 'alpha': 0.001, 'learning_rate': 0.001, 'max_iter': 300, 'random_state': 42} - INFO - Classification report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.98      0.99      1506
+           1       0.94      0.97      0.96       419
+
+    accuracy                           0.98      1925
+   macro avg       0.97      0.98      0.97      1925
+weighted avg       0.98      0.98      0.98      1925
+
+2025-05-04 21:06:30,993 - model.{'hidden_layer_sizes': [64, 32, 16], 'activation': 'relu', 'solver': 'adam', 'alpha': 0.001, 'learning_rate': 0.001, 'max_iter': 300, 'random_state': 42} - INFO - Confusion matrix:
+[[1482   24]
+ [  12  407]]
+2025-05-04 21:06:30,993 - __main__ - INFO - NeuralNetwork metrics: {'accuracy': 0.9812987012987013, 'precision': 0.9443155452436195, 'recall': 0.9713603818615751, 'f1_score': 0.9576470588235294, 'roc_auc': np.float64(0.9972647199586697)}
+2025-05-04 21:06:30,994 - __main__ - INFO - Training and evaluating GradientBoosting model
+2025-05-04 21:06:32,236 - model.{'n_estimators': 300, 'max_depth': 6, 'learning_rate': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'random_state': 42} - INFO - Classification report:
+              precision    recall  f1-score   support
+
+           0       1.00      0.99      0.99      1506
+           1       0.96      0.98      0.97       419
+
+    accuracy                           0.99      1925
+   macro avg       0.98      0.99      0.98      1925
+weighted avg       0.99      0.99      0.99      1925
+
+2025-05-04 21:06:32,240 - model.{'n_estimators': 300, 'max_depth': 6, 'learning_rate': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'random_state': 42} - INFO - Confusion matrix:
+[[1489   17]
+ [   7  412]]
+2025-05-04 21:06:32,241 - __main__ - INFO - GradientBoosting metrics: {'accuracy': 0.9875324675324675, 'precision': 0.9603729603729604, 'recall': 0.9832935560859188, 'f1_score': 0.9716981132075472, 'roc_auc': np.float64(0.9992615060838588)}
+2025-05-04 21:06:32,262 - __main__ - INFO - Saved feature importance to output\gradientboosting_feature_importance.csv
+2025-05-04 21:06:32,265 - __main__ - INFO - 5. Creating visualizations
+2025-05-04 21:06:34,425 - __main__ - ERROR - Error in pipeline: 'str' object has no attribute 'get'

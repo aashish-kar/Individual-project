@@ -1,0 +1,78 @@
+# System configuration for football player performance prediction
+
+# Data paths
+data_paths:
+  raw_data: 'data/raw/FPL_logs.csv'
+  processed_data: 'data/processed/FPL_logs_processed.csv'
+  features_data: 'data/features/FPL_logs_features.csv'
+
+# Required columns for data validation
+required_columns:
+  - 'Min'
+  - 'FPL_points'
+  - 'Season'
+  - 'GW'
+  - 'Clean_name'
+
+# Model configurations
+models:
+  random_forest:
+    hyperparameters:
+      n_estimators: 200
+      max_depth: 15
+      min_samples_split: 10
+      min_samples_leaf: 4
+      class_weight: 'balanced'
+      random_state: 42
+  
+  svm:
+    hyperparameters:
+      C: 5.0
+      kernel: 'rbf'
+      gamma: 0.01
+      probability: true
+      class_weight: 'balanced'
+      random_state: 42
+  
+  neural_network:
+    hyperparameters:
+      hidden_layer_sizes: [64, 32, 16]
+      activation: 'relu'
+      solver: 'adam'
+      alpha: 0.001
+      learning_rate: 0.001
+      max_iter: 300
+      random_state: 42
+  
+  gradient_boosting:
+    hyperparameters:
+      n_estimators: 300
+      max_depth: 6
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      random_state: 42
+
+# Feature engineering configurations
+feature_engineering:
+  per_90_features: true
+  form_features:
+    enabled: true
+    window_sizes: [3, 5, 10]
+  match_context_features: true
+  position_interaction_features: true
+
+# Feature selection configurations
+feature_selection:
+  default_method: 'SelectKBest'
+  default_n_features: 30
+
+# Evaluation configurations
+evaluation:
+  classification_threshold: 5.0
+  metrics:
+    - 'accuracy'
+    - 'precision'
+    - 'recall'
+    - 'f1_score'
+    - 'roc_auc'

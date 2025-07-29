@@ -1,0 +1,46 @@
+2025-05-04 20:10:56,899 - root - INFO - Logging initialized. Logs will be written to logs\football_prediction_20250504_201056.log.
+2025-05-04 20:10:56,901 - __main__ - INFO - 1. Starting data loading
+2025-05-04 20:10:56,942 - src.data.loader - INFO - Loading data from data/raw/FPL_logs.csv
+2025-05-04 20:10:57,509 - src.data.loader - INFO - Data validation passed
+2025-05-04 20:10:57,509 - src.data.loader - INFO - Dataset loaded: 24573 rows, 80 columns
+2025-05-04 20:10:57,510 - src.data.loader - INFO - Columns: ['Date', 'Day', 'Venue', 'Team', 'Opponent', 'Name', 'Start', 'Pos', 'Min', 'Gls']... (and 70 more)
+2025-05-04 20:10:57,516 - src.data.loader - INFO - Data types: {dtype('float64'): 59, dtype('O'): 17, dtype('int64'): 3, dtype('bool'): 1}
+2025-05-04 20:10:57,566 - src.data.loader - INFO - Missing values: 121533 total missing values
+2025-05-04 20:10:57,574 - __main__ - INFO - 2. Starting data preprocessing
+2025-05-04 20:10:57,603 - src.data.preprocessor - INFO - Starting data preprocessing
+2025-05-04 20:10:57,629 - src.data.preprocessor - INFO - Filtered rows with playing time > 0: 19236 rows remaining
+2025-05-04 20:10:57,630 - src.data.preprocessor - INFO - Handling missing values
+2025-05-04 20:10:57,814 - src.data.preprocessor - INFO - Missing values handled: 0 remaining
+2025-05-04 20:10:57,814 - src.data.preprocessor - INFO - Creating binary target variable with threshold 5.0
+2025-05-04 20:10:57,817 - src.data.preprocessor - INFO - Target variable distribution: {0: 15242, 1: 3994}
+2025-05-04 20:10:57,818 - src.data.preprocessor - INFO - Dropping 10 non-feature columns
+2025-05-04 20:10:57,835 - src.data.preprocessor - INFO - Transforming features
+2025-05-04 20:10:57,848 - src.data.preprocessor - INFO - Encoding 10 categorical variables
+2025-05-04 20:10:58,412 - src.data.preprocessor - INFO - Feature transformation complete: 78 features
+2025-05-04 20:10:58,415 - src.data.preprocessor - INFO - Default temporal split (80/10/10): Train=15388, Val=1923, Test=1925
+2025-05-04 20:10:58,416 - src.data.preprocessor - INFO - Data preprocessing completed
+2025-05-04 20:10:58,419 - __main__ - INFO - 3. Starting feature selection
+2025-05-04 20:10:58,444 - src.features.selector - INFO - Performing SelectKBest feature selection with cross-validation
+2025-05-04 20:10:58,446 - src.features.selector - INFO - Selecting top 30 features using univariate tests
+2025-05-04 20:10:58,541 - src.features.selector - INFO - Selected 30 features using SelectKBest
+2025-05-04 20:11:08,022 - src.features.selector - INFO - Cross-validated F1 score with selected features: 0.9672 ± 0.0046
+2025-05-04 20:11:08,031 - __main__ - INFO - Saved selected features to output\selected_features.joblib for prediction UI
+2025-05-04 20:11:08,032 - __main__ - INFO - 4. Starting model training and evaluation
+2025-05-04 20:11:08,033 - __main__ - INFO - Training and evaluating RandomForest model
+2025-05-04 20:11:12,811 - model.{'n_estimators': 200, 'max_depth': 15, 'min_samples_split': 10, 'min_samples_leaf': 4, 'class_weight': 'balanced', 'random_state': 42} - INFO - Classification report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.99      0.99      1506
+           1       0.96      0.97      0.97       419
+
+    accuracy                           0.99      1925
+   macro avg       0.98      0.98      0.98      1925
+weighted avg       0.99      0.99      0.99      1925
+
+2025-05-04 20:11:12,817 - model.{'n_estimators': 200, 'max_depth': 15, 'min_samples_split': 10, 'min_samples_leaf': 4, 'class_weight': 'balanced', 'random_state': 42} - INFO - Confusion matrix:
+[[1490   16]
+ [  12  407]]
+2025-05-04 20:11:12,819 - __main__ - INFO - RandomForest metrics: {'accuracy': 0.9854545454545455, 'precision': 0.9621749408983451, 'recall': 0.9713603818615751, 'f1_score': 0.9667458432304038, 'roc_auc': np.float64(0.9987535934226499)}
+2025-05-04 20:11:12,938 - __main__ - INFO - Saved feature importance to output\randomforest_feature_importance.csv
+2025-05-04 20:11:12,939 - __main__ - INFO - Training and evaluating SVM model
+2025-05-04 20:11:12,952 - __main__ - ERROR - Error in pipeline: 'SVM'
